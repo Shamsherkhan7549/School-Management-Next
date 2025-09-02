@@ -26,7 +26,7 @@ const page = () => {
 
   return (
     <>
-    <div className='my-5 py-5 md:mx-[100px]'>
+    <div className='my-5 py-5 md:mx-[100px] '>
 
       <SchoolSearch/>
 

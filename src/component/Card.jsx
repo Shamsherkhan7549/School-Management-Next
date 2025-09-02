@@ -5,7 +5,7 @@ const Card = ({ name, image, city, address }) => {
     <div className='size-70 h-[550px] w-[270px]   w-full  rounded-xl hover:rounded-none cursor-pointer'>
 
       <div className='w-full h-64 overflow-hidden  shadow-lg'>
-        <img className='w-full h-full object-center transition-transform duration-500 hover:scale-110' src={image} alt="school_image" />
+        <img className='w-full h-full object-center transition-transform duration-500 hover:scale-110 rounded-t-xl hover:rounded-none' src={image} alt="school_image" />
 
       </div>
       <div className=' px-5 py-5 h-[250px] flex flex-col border border-gray-300 rounded-b-xl relative'>
