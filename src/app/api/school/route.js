@@ -5,7 +5,7 @@ export async function GET(){
     try{
         const [rows] = await pool.query("SELECT * FROM school");
         console.log(rows)
-        return Response.json({success:true, message:"school retrieved successfully", data:rows});
+        return Response.json({success:true, message:"school retrieved successfully", schools:rows});
     }catch(error){
         console.log("error in get : " + error)
         return Response.json({success:false, message:"Failed to retrieve school", data:[]});
