@@ -1,7 +1,10 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+
 
 const AddSchool = () => {
 
@@ -25,17 +28,33 @@ const AddSchool = () => {
     setSchoolInfo(prevInfo => ({ ...prevInfo, [event.target.name]: event.target.value }))
   };
 
+  const validateInput = (schoolInfo) => {
+    if (!schoolInfo.school_name)
+      return toast.error('Username is required');
+    else if (!schoolInfo.address)
+      return toast.error('Address is required');
+    else if (!schoolInfo.city)
+      return toast.error('City is required');
+    else if (!schoolInfo.state)
+      return toast.error('State is required');
+    else if (!schoolInfo.contact)
+      return toast.error('Contact is required');
+    else if (!schoolInfo.email_id)
+      return toast.error('Email is required');
+
+  }
+
 
   const handlingSubmit = async (event) => {
     event.preventDefault();
     try {
 
-      if (!file) return "please upload image"
+      validateInput(schoolInfo)
+
+      if (!file) return toast.error("Image upload is required")
       const formData = new FormData()
       formData.append("image", file)
       formData.append("schoolInfo", JSON.stringify(schoolInfo))
-
-
 
       const response = await axios.post('/api/school', formData,
         {
@@ -44,29 +63,41 @@ const AddSchool = () => {
           }
         })
 
+      const data = response.data
+
       if (data.success) {
+        toast.success('School added successfully!');
+        setSchoolInfo({
+          school_name: "",
+          address: "",
+          city: "",
+          state: "",
+          contact: "",
+          email_id: ""
+        })
+
+        setFile(null)
         router.push('/')
+
+      }else{
+        toast.error(data.message || 'Something went wrong!');
       }
 
-      setSchoolInfo({
-        school_name: "",
-        address: "",
-        city: "",
-        state: "",
-        contact: "",
-        email_id: ""
-      })
 
-      setFile(null)
 
     } catch (error) {
+      toast.error(error.message)
       console.log("error in add school: " + error)
     }
   }
 
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
       <form onSubmit={handlingSubmit} className="w-full max-w-2xl bg-white shadow-lg rounded-2xl p-8 space-y-6">
+        <Toaster position="top-right" reverseOrder={true} />
+
         <h2 className="text-2xl font-bold text-gray-700 text-center">School Registration Form</h2>
 
         {/*  Sl Name */}

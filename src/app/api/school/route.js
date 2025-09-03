@@ -29,6 +29,15 @@ export async function POST(request) {
         const schoolInfo = JSON.parse(data.get("schoolInfo")); // parse JSON string
 
         const { school_name, address, city, state, contact, email_id } = schoolInfo
+
+
+        if(!school_name||!address||!city|!state|!contact|!email_id)
+            NextResponse.json({ error: "Enter all details" }, { status: 400 })
+
+        const[row] = await pool.query("SELECT * FROM school WHERE email_id=? ",[email_id])
+
+        if(row.length>0)return NextResponse.json({ error: "School already available with this email" }, { status: 400 });
+
         // Upload file to Cloudinary
 
         // Temp file using OS temp directory

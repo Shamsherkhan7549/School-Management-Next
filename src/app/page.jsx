@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Card from '@/component/Card'
 import SchoolSearch from '@/component/SchoolSearch'
+import { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast'
+import { useSchoolContext } from '@/schoolContext/SchoolContext'
 
 const page = () => {
-  const [schools, setSchools] = useState([])
+ const{schools, setSchools} = useSchoolContext()
 
   const allSchools = async() => {
     try{
@@ -15,6 +18,7 @@ const page = () => {
         setSchools(data.schools)
       }
     }catch(error){
+      toast.error("error.response.message")
       console.log(error)
     }
   }
@@ -27,6 +31,7 @@ const page = () => {
   return (
     <>
     <div className='my-5 py-5 md:mx-[100px] '>
+       <Toaster position="top-right" reverseOrder={false} />
 
       <SchoolSearch/>
 
