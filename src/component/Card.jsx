@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 const Card = ({ name, image, city, address }) => {
   return (
-    <div className='size-70 h-[550px]  w-[270px] rounded-xl hover:rounded-none cursor-pointer'>
+    <div className='size-70 h-[550px]  w-[260px] rounded-xl hover:rounded-none cursor-pointer'>
 
       <div className='w-full h-64 overflow-hidden  shadow-lg'>
         <img className='w-full h-full object-center transition-transform duration-500 hover:scale-110 rounded-t-xl hover:rounded-none' src={image} alt="school_image" />
